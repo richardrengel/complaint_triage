@@ -20,6 +20,12 @@ jobs:
       - image: "circleci/python:3.6.4"
     steps:
       - checkout
+      - run:
+          name: Install Python dependencies
+          command:
+            echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV && source $BASH_ENV
+            pip install -r requirements.txt
+            pip list
       - run: python3 main.py
 
 workflows:
