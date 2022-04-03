@@ -10,8 +10,9 @@ jobs:
       - run:
           name: Install Python dependencies
           command:
-            echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV && source $BASH_ENV
-            pip install --user -r requirements.txt
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
       - run: python3 main.py
   test:
     working_directory: ~/circleci-python
