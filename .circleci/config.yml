@@ -11,7 +11,7 @@ jobs:
           name: Install Python dependencies
           command: |
             echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV && source $BASH_ENV
-            apt install y python-pip
+            apt install -y python-pip
             pip install -r requirements.txt
             pip list
             echo "hello word"
