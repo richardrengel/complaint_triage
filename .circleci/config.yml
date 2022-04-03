@@ -8,7 +8,7 @@ jobs:
     steps:
       - checkout
       - run:
-          - command: |
+          - command:
               echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV && source $BASH_ENV
               pip install --ueser -r requirements.txt
       - run: python3 main.py
