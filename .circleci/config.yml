@@ -9,29 +9,30 @@ jobs:
       - checkout
       - run:
           name: Install Python dependencies
-          command:
+          command: |
             echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV && source $BASH_ENV
             pip install -r requirements.txt
             pip list
-      - run: python3 main.py
-  test:
-
-    docker:
-      - image: "circleci/python:3.7.4"
-    steps:
-      - checkout
-      - run:
-          name: Install Python dependencies
-          command:
-            echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV && source $BASH_ENV
-            pip install -r requirements.txt
-            pip list
-      - run: python3 main.py
+            echo "hello word"
+      - run: python main.py
+#  test:
+#
+#    docker:
+#      - image: "circleci/python:3.7.4"
+#    steps:
+#      - checkout
+#      - run:
+#          name: Install Python dependencies
+#          command:
+#            echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV && source $BASH_ENV
+#            pip install -r requirements.txt
+#            pip list
+#      - run: python3 main.py
 
 workflows:
   build_and_test:
     jobs:
       - build
-      - test:
-          requires:
-            - build
+#      - test:
+#          requires:
+#            - build
