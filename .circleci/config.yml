@@ -9,7 +9,7 @@ jobs:
       - checkout
       - run:
           name: Install Python dependencies
-            command: |
+            command:
               echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV && source $BASH_ENV
               pip install --user -r requirements.txt
       - run: python3 main.py
