@@ -12,6 +12,7 @@ jobs:
           command:
             echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV && source $BASH_ENV
             pip install -r requirements.txt
+            pip list
       - run: python3 main.py
   test:
 
