@@ -2,7 +2,7 @@ version: 2.1
 
 jobs:
   build:
-    working_directory: ~/circleci-python
+
     docker:
       - image: "circleci/python:3.6.4"
     steps:
@@ -10,12 +10,11 @@ jobs:
       - run:
           name: Install Python dependencies
           command:
-            python3 -m venv venv
-            . venv/bin/activate
+            echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV && source $BASH_ENV
             pip install -r requirements.txt
       - run: python3 main.py
   test:
-    working_directory: ~/circleci-python
+
     docker:
       - image: "circleci/python:3.6.4"
     steps:
