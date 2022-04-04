@@ -14,7 +14,7 @@
 
 runtime: python37
 env: standard
-entrypoint: gunicorn -b :$PORT hello_world:app
+#entrypoint: gunicorn -b :$PORT hello_world:app
 
 #runtime_config:
 #  python_version: 3
