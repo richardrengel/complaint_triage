@@ -25,9 +25,9 @@ jobs:
           command: |
             echo ${GCLOUD_SERVICE_KEY} > /tmp/sa_key.json
             gcloud auth activate-service-account --key-file=/tmp/sa_key.json
-            gcloud config set project complaint-triage
-            gcloud config set compute/region us-west2
-            gcloud app deploy
+            gcloud --quiet config set project complaint-triage
+            gcloud --quiet config set compute/zone us-west2
+            gcloud --quiet app deploy
 workflows:
   build_test:
     jobs:
