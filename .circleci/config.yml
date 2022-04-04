@@ -20,6 +20,12 @@ jobs:
           path: test-reports
       - store_artifacts:
           path: test-reports
+      - run:
+          name: deploy to app engine
+          command: |
+            gcloud config set project complaint-triage
+            gcloud config set compute/region us-east1-b
+            gcloud app deploy
 workflows:
   build_test:
     jobs:
