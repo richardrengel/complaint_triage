@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask,render_template,request,url_for
 
 app = Flask(__name__)
 
@@ -25,10 +25,13 @@ def greet():
 
 
 
+# @app.route("/")
+# def hello_world():
+#     html = generate_html(greet())
+#     return html
 @app.route("/")
-def hello_world():
-    html = generate_html(greet())
-    return html
+def index():
+	return render_template("index.html")
     # return "<p>Hello, World, from me R!</p>"
 
 
