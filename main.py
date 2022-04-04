@@ -8,7 +8,7 @@ def generate_html(message):
         <html>
         <body>
             <div style='text-align:center;font-size:80px;'>
-                <image height="340" width="1200" src="https://user-images.githubusercontent.com/194400/41597205-a57442ea-73c4-11e8-9591-61f5c83c7e66.png">
+                <image height="1200" width="400" src="https://raw.githubusercontent.com/richardrengel/complaint_triage/main/images/IMG-8086.jpg">
                 <br> {0}
                 <p>Version Number: {1}</p>
                 <br>
@@ -18,7 +18,7 @@ def generate_html(message):
     return html
 
 def greet():
-    greeting = 'Welcome to CI/CD test me'
+    greeting = 'Welcome to CI/CD, from Mushroom'
     return greeting
 
 
