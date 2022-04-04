@@ -13,7 +13,6 @@ jobs:
             python3 -m pip install -r requirements.txt
             echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV && source $BASH_ENV
 #            pip install --user -r requirements.txt
-            pip list
       - run:
           name: Run unit tests
           command: |
