@@ -3,7 +3,7 @@ from flask import Flask
 app = Flask(__name__)
 
 def generate_html(message):
-    version_number = '0001'
+    version_number = '6666'
     html = """
         <html>
         <body>
@@ -18,7 +18,7 @@ def generate_html(message):
     return html
 
 def greet():
-    greeting = 'Welcome to CI/CD, fools'
+    greeting = 'Welcome to CI/CD'
     return greeting
 
 @app.route('/')
