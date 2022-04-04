@@ -3,22 +3,23 @@ from flask import Flask
 app = Flask(__name__)
 
 def generate_html(message):
-    version_number = '0001'
+    version_number = '007'
     html = """
         <html>
         <body>
             <div style='text-align:center;font-size:80px;'>
-                <image height="1200" width="600" src="https://raw.githubusercontent.com/richardrengel/complaint_triage/main/images/IMG-8086.jpg">
                 <br> {0}
                 <p>Version Number: {1}</p>
                 <br>
+                <image height="800" width="500" src="https://raw.githubusercontent.com/richardrengel/complaint_triage/main/images/IMG-8086.jpg">
+                
             </div>
         </body>
         </html>""".format(message,version_number)
     return html
 
 def greet():
-    greeting = 'Welcome to CI/CD, from Mushroom'
+    greeting = 'Hi, from Mushroom'
     return greeting
 
 
