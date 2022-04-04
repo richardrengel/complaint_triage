@@ -8,7 +8,7 @@ def generate_html(message):
         <html>
         <body>
             <div style='text-align:center;font-size:80px;'>
-                <image height="1200" width="400" src="https://raw.githubusercontent.com/richardrengel/complaint_triage/main/images/IMG-8086.jpg">
+                <image height="1200" width="600" src="https://raw.githubusercontent.com/richardrengel/complaint_triage/main/images/IMG-8086.jpg">
                 <br> {0}
                 <p>Version Number: {1}</p>
                 <br>
