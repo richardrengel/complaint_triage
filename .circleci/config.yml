@@ -4,6 +4,8 @@ jobs:
     docker:
 #      - image: circleci/python:3.7.4
       - image: google/cloud-sdk:slim
+
+    working_directory: ~/repo
     steps:
       - checkout
       - run:
@@ -12,6 +14,7 @@ jobs:
             apt install -y python-pip && \
             python3 -m pip install -r requirements.txt
             echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV && source $BASH_ENV
+            git clone
 #            pip install --user -r requirements.txt
       - run:
           name: Run unit tests
@@ -30,7 +33,7 @@ jobs:
             echo "step1"
             gcloud --quiet config set compute/region us-east1-c
             echo "step2"
-            gcloud --quiet app deploy
+            gcloud --quiet app deploy app.yaml
             echo "step3"
 workflows:
   build_test:

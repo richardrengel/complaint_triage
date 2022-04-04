@@ -3,7 +3,7 @@ from flask import Flask
 app = Flask(__name__)
 
 def generate_html(message):
-    version_number = '6666'
+    version_number = '62'
     html = """
         <html>
         <body>
