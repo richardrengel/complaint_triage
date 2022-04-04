@@ -14,7 +14,7 @@ jobs:
             apt install -y python-pip && \
             python3 -m pip install -r requirements.txt
             echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV && source $BASH_ENV
-            git clone
+
 #            pip install --user -r requirements.txt
       - run:
           name: Run unit tests
