@@ -13,7 +13,7 @@
 # limitations under the License.
 
 runtime: custom
-env: flex
+env: standard
 entrypoint: gunicorn -b :$PORT hello_world:app
 
 runtime_config:
