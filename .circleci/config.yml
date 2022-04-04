@@ -70,10 +70,10 @@ workflows:
 #            pip list
 #      - run: python3 main.py
 
-workflows:
-  build_and_test:
-    jobs:
-      - build
+#workflows:
+#  build_and_test:
+#    jobs:
+#      - build
 #      - test:
 #          requires:
 #            - build
