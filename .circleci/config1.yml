@@ -1,0 +1,96 @@
+version: 2.1
+jobs:
+  run_tests:
+    docker:
+#      - image: circleci/python:3.7.4
+      - image: google/cloud-sdk:slim
+
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: Install Python dependencies
+          command: |
+            apt install -y python-pip && \
+            python3 -m pip install -r requirements.txt
+            echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV && source $BASH_ENV
+
+#            pip install --user -r requirements.txt
+      - run:
+          name: Run unit tests
+          command: |
+            pytest --junitxml=test-reports/junit.xml --html=test-reports/pytest_report.html --self-contained-html
+      - store_test_results:
+          path: test-reports
+      - store_artifacts:
+          path: test-reports
+      - run:
+          name: deploy to app engine
+          command: |
+            echo ${GCLOUD_SERVICE_KEY} > /tmp/sa_key.json
+            gcloud auth activate-service-account --key-file=/tmp/sa_key.json
+            gcloud --quiet config set project complaint-triage
+            echo "step1"
+            gcloud --quiet config set compute/region us-east1-c
+            echo "step2"
+            gcloud --quiet app deploy app.yaml
+            echo "step3"
+workflows:
+  build_test:
+    jobs:
+      - run_tests
+
+
+
+#version: 2.1
+#
+#jobs:
+#  build:
+#
+#    docker:
+#      - image: google/cloud-sdk
+#    steps:
+#      - checkout
+#      - run:
+#          name: Install Python dependencies
+#          command: |
+#            echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV && source $BASH_ENV
+#            apt install -y python-pip
+#            pip install -r requirements.txt
+#            pip list
+#            echo "hello word"
+#      - run: python3 main.py
+#
+#      - run:
+#          name: Run unit tests
+#          command: |
+#            pytest --junitxml=test-reports/junit.xml --html=test-reports/pytest_report.html --self-contained-html
+#      - store_test_results:
+#          path: test-reports
+#      - store_artifacts:
+#          path: test-reports
+#workflows:
+#  build_test:
+#    jobs:
+#      - run_tests
+#  test:
+#
+#    docker:
+#      - image: "circleci/python:3.7.4"
+#    steps:
+#      - checkout
+#      - run:
+#          name: Install Python dependencies
+#          command:
+#            echo 'export PATH=~$PATH:~/.local/bin' >> $BASH_ENV && source $BASH_ENV
+#            pip install -r requirements.txt
+#            pip list
+#      - run: python3 main.py
+
+#workflows:
+#  build_and_test:
+#    jobs:
+#      - build
+#      - test:
+#          requires:
+#            - build
