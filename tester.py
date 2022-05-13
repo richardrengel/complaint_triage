@@ -1,15 +1,9 @@
-from flask import Flask, render_template, request
-
 import base64
 import cv2
 import io
 import json
 
 import requests
-
-
-app = Flask(__name__)
-
 
 def preprocess_image(image_file_path, max_width, max_height):
     """Preprocesses input images for AutoML Vision Edge models.
@@ -41,6 +35,7 @@ def preprocess_image(image_file_path, max_width, max_height):
 
     print("imagepreprocessed")
     return base64.b64encode(processed_image).decode('utf-8')
+
 
 def container_predict(image_file_path, image_key, port_number=8501):
     """Sends a prediction request to TFServing docker container REST API.
@@ -78,48 +73,14 @@ def container_predict(image_file_path, image_key, port_number=8501):
 
     response1 = json.loads(response.content)
 
-    x = response1["predictions"][0]["scores"]
+    x=response1["predictions"][0]["scores"]
     max_value = max(x)
     max_index = x.index(max_value)
-    breed = response1["predictions"][0]["labels"][max_index]
+    breed=response1["predictions"][0]["labels"][max_index]
 
     print(type(x))
     print(x)
     print(breed)
-    return breed
 
-
-def predict_label(img_path):
-	i = image.load_img(img_path, target_size=(100,100))
-	i = image.img_to_array(i)/255.0
-	i = i.reshape(1, 100,100,3)
-	p = model.predict_classes(i)
-	return dic[p[0]]
-
-
-# routes
-@app.route("/", methods=['GET', 'POST'])
-def main():
-	return render_template("index.html")
-
-@app.route("/about")
-def about_page():
-	return "Please subscribe  Artificial Intelligence Hub..!!!"
-
-@app.route("/submit", methods = ['GET', 'POST'])
-def get_output():
-	if request.method == 'POST':
-		img = request.files['my_image']
-
-		img_path = "static/" + img.filename
-		img.save(img_path)
-
-		p= container_predict(img_path,"1",8501)
-		#p = predict_label(img_path)
-
-	return render_template("index.html", prediction = p, img_path = img_path)
-
-
-if __name__ =='__main__':
-	#app.debug = True
-	app.run(host='0.0.0.0', port=5000)
+imfile=r'/Users/richren/PycharmProjects/complaint_triage/images/afghan.jpeg'
+container_predict(imfile,"1",8501)
