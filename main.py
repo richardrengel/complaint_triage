@@ -1,11 +1,11 @@
 from flask import Flask, render_template, request
 
-import base64
-import cv2
-import io
-import json
-
-import requests
+# import base64
+# import cv2
+# import io
+# import json
+#
+# import requests
 
 
 app = Flask(__name__)
