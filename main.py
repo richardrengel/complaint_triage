@@ -27,9 +27,9 @@ def preprocess_image(image_file_path, max_width, max_height):
     """
     # cv2 is used to read, resize and encode images.
     encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 85]
-    # im = cv2.imread(image_file_path)
+    im = cv2.imread(image_file_path)
     # im=request.files.get('image')
-    im=image_file_path
+    # im=image_file_path
     [height, width, _] = im.shape
     if height > max_height or width > max_width:
         ratio = max(height / float(max_width), width / float(max_height))
@@ -109,38 +109,38 @@ def container_predict(image_file_path, image_key, port_number=8501):
     return breed
 
 
-def predict_label(img_path):
-	i = image.load_img(img_path, target_size=(100,100))
-	i = image.img_to_array(i)/255.0
-	i = i.reshape(1, 100,100,3)
-	p = model.predict_classes(i)
-	return dic[p[0]]
+# def predict_label(img_path):
+#     i = image.load_img(img_path, target_size=(100,100))
+# 	i = image.img_to_array(i)/255.0
+# 	i = i.reshape(1, 100,100,3)
+# 	p = model.predict_classes(i)
+# 	return dic[p[0]]
 
 
 # routes
 @app.route("/", methods=['GET', 'POST'])
 def main():
-	return render_template("index.html")
+    return render_template("index.html")
 
 @app.route("/about")
 def about_page():
-	return "Please subscribe  Artificial Intelligence Hub..!!!"
+    return "Please subscribe  Artificial Intelligence Hub..!!!"
 
 @app.route("/submit", methods = ['GET', 'POST'])
 def get_output():
-	if request.method == 'POST':
-		img = request.files['my_image']
-        p = container_predict(img, "1", 8501)
+    if request.method == 'POST':
+        img = request.files['my_image']
+        # p = container_predict(img, "1", 8501)
 
-		# img_path = "static/" + img.filename
-		# img.save(img_path)
+        img_path = "static/" + img.filename
+        img.save(img_path)
 
-		# p= container_predict(img_path,"1",8501)
-		#p = predict_label(img_path)
+        p= container_predict(img_path,"1",8501)
+        # p = predict_label(img_path)
 
-	return render_template("index.html", prediction = p, img_path = img_path)
+    return render_template("index.html", prediction = p, img_path = img_path)
 
 
 if __name__ =='__main__':
-	#app.debug = True
-	app.run(host='0.0.0.0', port=5000)
+    #app.debug = True
+    app.run(host='0.0.0.0', port=5000)
