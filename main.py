@@ -130,6 +130,7 @@ def about_page():
 def get_output():
 	if request.method == 'POST':
 		img = request.files['my_image']
+        p = container_predict(img, "1", 8501)
 
 		# img_path = "static/" + img.filename
 		# img.save(img_path)
@@ -137,8 +138,6 @@ def get_output():
 		# p= container_predict(img_path,"1",8501)
 		#p = predict_label(img_path)
 
-
-        p = container_predict(img, "1", 8501)
 	return render_template("index.html", prediction = p, img_path = img_path)
 
 
