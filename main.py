@@ -132,7 +132,7 @@ def get_output():
         img = request.files['my_image']
         # p = container_predict(img, "1", 8501)
 
-        img_path = "static/" + img.filename
+        img_path = "tmp/" + img.filename
         img.save(img_path)
 
         p= container_predict(img_path,"1",8501)
