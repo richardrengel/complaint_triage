@@ -27,7 +27,8 @@ def preprocess_image(image_file_path, max_width, max_height):
     """
     # cv2 is used to read, resize and encode images.
     encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 85]
-    im = cv2.imread(image_file_path)
+    # im = cv2.imread(image_file_path)
+    im=request.files.get('image')
     [height, width, _] = im.shape
     if height > max_height or width > max_width:
         ratio = max(height / float(max_width), width / float(max_height))
