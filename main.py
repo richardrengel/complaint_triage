@@ -28,7 +28,8 @@ def preprocess_image(image_file_path, max_width, max_height):
     # cv2 is used to read, resize and encode images.
     encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 85]
     # im = cv2.imread(image_file_path)
-    im=request.files.get('image')
+    # im=request.files.get('image')
+    im=image_file_path
     [height, width, _] = im.shape
     if height > max_height or width > max_width:
         ratio = max(height / float(max_width), width / float(max_height))
@@ -130,14 +131,14 @@ def get_output():
 	if request.method == 'POST':
 		img = request.files['my_image']
 
-		img_path = "static/" + img.filename
-		img.save(img_path)
+		# img_path = "static/" + img.filename
+		# img.save(img_path)
 
-		p= container_predict(img_path,"1",8501)
+		# p= container_predict(img_path,"1",8501)
 		#p = predict_label(img_path)
 
 
-        # p = container_predict(img, "1", 8501)
+        p = container_predict(img, "1", 8501)
 	return render_template("index.html", prediction = p, img_path = img_path)
 
 
