@@ -1,11 +1,12 @@
 from flask import Flask, render_template, request
 
-import base64
+from base64 import b64decode, b64encode
 import cv2
-# import io
+import io
 import json
 
 import requests
+import numpy as np
 
 
 app = Flask(__name__)
@@ -29,6 +30,7 @@ def preprocess_image(image_file_path, max_width, max_height):
     encode_param = [int(cv2.IMWRITE_JPEG_QUALITY), 85]
     # im = cv2.imread(image_file_path)
     # im=request.files.get('image')
+    # im = cv2.imdecode(np.frombuffer(io_buf.getbuffer(), np.uint8), -1)
     im=image_file_path
     [height, width, _] = im.shape
     if height > max_height or width > max_width:
@@ -42,7 +44,7 @@ def preprocess_image(image_file_path, max_width, max_height):
         _, processed_image = cv2.imencode('.jpg', im, encode_param)
 
     print("imagepreprocessed")
-    return base64.b64encode(processed_image).decode('utf-8')
+    return b64encode(processed_image).decode('utf-8')
 
 def container_predict(image_file_path, image_key, port_number=8501):
     """Sends a prediction request to TFServing docker container REST API.
@@ -130,16 +132,22 @@ def about_page():
 def get_output():
     if request.method == 'POST':
         img = request.files['my_image']
+        imgr=img.read()
+        img_b64 = b64encode(imgr).decode()
+        img_src = 'data:{};base64,{}'.format(img.content_type, img_b64)
+        npimg = np.fromstring(imgr, np.uint8)
+        img = cv2.imdecode(npimg, cv2.IMREAD_UNCHANGED)
         # p = container_predict(img, "1", 8501)
 
         # img_path = "tmp/" + img.filename
         # img.save(img_path)
         img_path=img
+        print(type(img_path))
 
         p= container_predict(img_path,"1",8501)
         # p = predict_label(img_path)
 
-    return render_template("index.html", prediction = p, img_path = img_path)
+    return render_template("index.html", prediction = p, img_path = img_src)
 
 
 if __name__ =='__main__':
