@@ -33,7 +33,7 @@ jobs:
             echo "step1"
             gcloud --quiet config set compute/region us-east1-c
             echo "step2"
-            gcloud --quiet app deploy app.yaml
+            gcloud --quiet app deploy app.yaml --bucket=gs://my_new_bucket
             echo "step3"
 workflows:
   build_test:
