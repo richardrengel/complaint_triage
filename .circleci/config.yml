@@ -27,8 +27,8 @@ jobs:
       - run:
           name: deploy to app engine
           command: |
-            echo ${GCLOUD_SERVICE_KEY} > /tmp/sa_key.json
-            gcloud auth activate-service-account --key-file=/tmp/sa_key.json
+#            echo ${GCLOUD_SERVICE_KEY} > /tmp/sa_key.json
+#            gcloud auth activate-service-account --key-file=/tmp/sa_key.json
             gcloud --quiet config set project complaint-triage-dev
             echo "step1"
             gcloud --quiet config set compute/region us-east1-c
